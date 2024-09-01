@@ -44,6 +44,21 @@ class DoublyLinkedList:
         temp = self.tail
         print('Tail is:', temp.data)
 
+    def popHead(self):
+        if self.head is None:
+            print('The list is empty')
+            return
+        if self.head == self.tail:
+            print('The head is:', self.head.data, '\n')
+            print('The list contains only one node and now its empty \n')
+            self.head = None
+            self.tail = None
+        else:
+            next = self.head.next
+            print('Popped Head:', self.head.data)
+            self.head = None
+            self.head = next
+
 
 dll = DoublyLinkedList()
 dll.insert(5)
@@ -57,3 +72,7 @@ dll.printBackward()
 
 dll.peekHead()
 dll.peekTail()
+
+dll.popHead()
+
+dll.peekHead()
