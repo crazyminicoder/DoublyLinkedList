@@ -59,6 +59,20 @@ class DoublyLinkedList:
             self.head = None
             self.head = next
 
+    def popTail(self):
+        if self.tail is None:
+            print("The list is empty")
+            return
+        if self.tail == self.head:
+            print('Popped Tail:', self.tail.data, '\n')
+            print("The list is empty now")
+            self.tail = None
+        else:
+            next = self.tail.prev
+            print("Popped Tail:", self.tail.data)
+            self.tail = None
+            self.tail = next
+
 
 dll = DoublyLinkedList()
 dll.insert(5)
@@ -76,3 +90,7 @@ dll.peekTail()
 dll.popHead()
 
 dll.peekHead()
+
+dll.popTail()
+
+dll.peekTail()
