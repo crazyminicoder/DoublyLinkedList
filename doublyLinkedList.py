@@ -23,12 +23,16 @@ class DoublyLinkedList:
         self.tail = new_node
 
     def printBackward(self):
-        current = self.head
-        while current.next:
-            current = current.next
+        current = self.tail
         while current:
             print(current.data, end=" <-> " if current.prev else "\n")
             current = current.prev
+
+    def printForwards(self):
+        current = self.head
+        while current:
+            print(current.data, end=" <-> " if current.next else "\n")
+            current = current.next
 
     def peekHead(self):
         if self.head is None:
@@ -54,10 +58,9 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
         else:
-            next = self.head.next
             print('Popped Head:', self.head.data)
-            self.head = None
-            self.head = next
+            self.head = self.head.next
+            self.head.prev = None
 
     def popTail(self):
         if self.tail is None:
@@ -68,10 +71,35 @@ class DoublyLinkedList:
             print("The list is empty now")
             self.tail = None
         else:
-            next = self.tail.prev
             print("Popped Tail:", self.tail.data)
-            self.tail = None
-            self.tail = next
+            self.tail = self.tail.prev
+            self.tail.next = None
+
+    def insertInbetween(self, key, pos):
+        if self.head is None:
+            print('The list is empty')
+            return
+        temp = self.head
+        count = 1
+        while temp and count < pos:
+            count += 1
+            temp = temp.next
+
+        if temp is None:
+            print("Position out of bounds")
+            return
+
+        newNode = Node(key)
+        if temp.next is None:
+            temp.next = newNode
+            newNode.prev = temp
+            self.tail = newNode
+        else:
+            next = temp.next
+            temp.next = newNode
+            newNode.prev = temp
+            newNode.next = next
+            next.prev = newNode
 
 
 dll = DoublyLinkedList()
@@ -81,8 +109,6 @@ dll.insert(15)
 dll.insert(20)
 dll.insert(25)
 dll.insert(30)
-
-dll.printBackward()
 
 dll.peekHead()
 dll.peekTail()
@@ -94,3 +120,8 @@ dll.peekHead()
 dll.popTail()
 
 dll.peekTail()
+
+dll.insertInbetween(17, 4)
+dll.printBackward()
+print('\n')
+dll.printForwards()
