@@ -101,6 +101,38 @@ class DoublyLinkedList:
             newNode.next = next
             next.prev = newNode
 
+    def removeNode(self, key):
+        if self.head is None:
+            print('The list is empty')
+            return
+        if self.head.data == key:
+            next = self.head.next
+            self.head = None
+            self.head = next
+            self.head.prev = None
+
+        elif self.tail.data == key:
+            prev = self.tail.prev
+            self.tail = None
+            self.tail = prev
+            self.tail.next = None
+        else:
+            temp = self.head
+            while temp:
+                if temp.data == key:
+                    break
+                temp = temp.next
+
+        if temp is None:
+            print('Key out of bounds')
+            return
+
+        prev = temp.prev
+        next = temp.next
+        temp = None
+        prev.next = next
+        next.prev = prev
+
 
 dll = DoublyLinkedList()
 dll.insert(5)
@@ -124,4 +156,8 @@ dll.peekTail()
 dll.insertInbetween(17, 4)
 dll.printBackward()
 print('\n')
+dll.printForwards()
+
+dll.removeNode(20)
+
 dll.printForwards()
